@@ -1,4 +1,4 @@
-package website;
+package com.dowanBeer.articleRetreiver.website;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -12,7 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.dowanBeer.articleRetreiver.Constants;
+import com.dowanBeer.articleRetreiver.beans.Article;
+import com.dowanBeer.articleRetreiver.utils.Constants;
 
 public class SacAPof extends WebSite{
 
@@ -39,7 +40,11 @@ public class SacAPof extends WebSite{
 			for (Element article : articles){
 				String md5article = Arrays.toString(md5crypter.digest(article.html().getBytes(StandardCharsets.UTF_8)));
 				if (!md5ArticlesSet.contains(md5article)){
-					//TODO Add article in the DB
+					Element h1 = doc.getElementsByTag("h1").first();
+					String title = h1 != null ? h1.text() : null;
+					Element content = doc.getElementsByClass("entry-content").first();
+					String body = h1 != null ? content.text() : null;
+					new Article(doc.html(), md5article, doc.getElementsByTag("article").first().attr("id"), doc.text(), title, body, this);
 				}
 			}
 		} catch (IOException e) {
@@ -53,12 +58,12 @@ public class SacAPof extends WebSite{
 
 	@Override
 	public String[] getAllArticles() {
-		// TODO Auto-generated method stub
+		// TODO Retrieve all article from database
 		return null;
 	}
 	/**
 	 * 
-	 * Example of one article
+	 * Example of one article with pictures
 	<article id="post-813" class="post-813 post type-post status-publish format-standard hentry category-non-classe">
 	<div class="blog-item-wrap">
 		<a href="http://sacapof.org/quelques-photo-du-demontage/" title="Quelques photo du démontage&#8230;" ></a>
@@ -207,4 +212,20 @@ public class SacAPof extends WebSite{
 		</div>
 	</article>
 */
+	
+	public static void main(String[] args) {
+		String test = "<h1 class=\"entry-title\"><a href=\"http://sacapof.org/quelques-photo-du-demontage/\" rel=\"bookmark\">Quelques photo du démontage&#8230;</a></h1>";
+		Document doc = Jsoup.parse(test);
+		System.out.println(doc.text());
+		Elements titre = doc.getElementsByTag("article");
+		System.out.println(titre);
+		System.out.println(titre.first());
+		System.out.println(titre.get(0).html());
+		Elements all = titre.get(0).getAllElements();
+		System.out.println("AAAA");
+		for (Element e : all){
+			System.out.println(e.html());
+			System.out.println(e.text());
+		}
+	}
 }

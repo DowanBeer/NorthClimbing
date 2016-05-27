@@ -1,4 +1,4 @@
-package website;
+package com.dowanBeer.articleRetreiver.website;
 
 public abstract class WebSite {
 	private String name;
