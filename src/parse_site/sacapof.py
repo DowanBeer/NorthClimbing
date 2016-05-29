@@ -20,15 +20,3 @@ suite = data.split('<h3>Dernières Actualités</h3>')[1]
 
 for i in suite.split('<p>'):
     print i.split('</p>')[0] + '\n\n-----------------------\n\n'
-
-"""
-split = data.split('</header><!-- .entry-header -->')
-
-for i in split:
-    splitleretour = i.split('<p>')
-    for j in splitleretour:
-        try:
-            print j.split('</p>')[0]
-        except:
-            pass
-"""
