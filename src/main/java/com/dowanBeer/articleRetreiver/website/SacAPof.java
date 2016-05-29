@@ -1,19 +1,17 @@
 package com.dowanBeer.articleRetreiver.website;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
+import com.dowanBeer.articleRetreiver.beans.Article;
+import com.dowanBeer.articleRetreiver.utils.Constants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.dowanBeer.articleRetreiver.beans.Article;
-import com.dowanBeer.articleRetreiver.utils.Constants;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 public class SacAPof extends WebSite{
 
@@ -28,23 +26,29 @@ public class SacAPof extends WebSite{
 	}
 
 	@Override
-	public String[] getNewArticles() {
+	public List<Article> getNewArticles() {
 		
 		// TODO Retrieve md5Articles from DB		
 		Set<String> md5ArticlesSet = new HashSet<String>();
-		
+        ArrayList<Article> arts = new ArrayList<Article>();
 		try {
 			Document doc = Jsoup.connect(Constants.sacAPofArticleURLString).get();
 			Elements articles =  doc.getElementsByTag("article");
 			MessageDigest md5crypter = MessageDigest.getInstance("MD5");
 			for (Element article : articles){
-				String md5article = Arrays.toString(md5crypter.digest(article.html().getBytes(StandardCharsets.UTF_8)));
+                System.out.println(article.html());
+                String md5article = new String(md5crypter.digest(article.html().getBytes("UTF-8")));
 				if (!md5ArticlesSet.contains(md5article)){
-					Element h1 = doc.getElementsByTag("h1").first();
+                    System.out.println(md5article);
+                    md5ArticlesSet.add(md5article);
+					Element h1 = article.getElementsByTag("h1").first();
 					String title = h1 != null ? h1.text() : null;
-					Element content = doc.getElementsByClass("entry-content").first();
-					String body = h1 != null ? content.text() : null;
-					new Article(doc.html(), md5article, doc.getElementsByTag("article").first().attr("id"), doc.text(), title, body, this);
+					Element content = article.getElementsByClass("entry-content").first();
+					String body = content != null ? content.text() : null;
+                    Element time = article.getElementsByTag("time").first();
+                    String date = time != null ? time.attr("datetime"): null;
+                    ZonedDateTime zdt = ZonedDateTime.parse(date);
+					arts.add(new Article(article.html(), md5article, article.attr("id"), article.text(), title, body, this, zdt.toLocalDateTime()));
 				}
 			}
 		} catch (IOException e) {
@@ -53,7 +57,7 @@ public class SacAPof extends WebSite{
 			e.printStackTrace();
 		}
 		
-		return null;
+		return arts;
 	}
 
 	@Override
@@ -66,11 +70,11 @@ public class SacAPof extends WebSite{
 	 * Example of one article with pictures
 	<article id="post-813" class="post-813 post type-post status-publish format-standard hentry category-non-classe">
 	<div class="blog-item-wrap">
-		<a href="http://sacapof.org/quelques-photo-du-demontage/" title="Quelques photo du démontage&#8230;" ></a>
+		<a href="http://sacapof.org/quelques-photo-du-demontage/" title="Quelques photo du dï¿½montage&#8230;" ></a>
 		<div class="post-inner-content">
 			<header class="entry-header page-header">
 				<h1 class="entry-title">
-					<a href="http://sacapof.org/quelques-photo-du-demontage/" rel="bookmark">Quelques photo du démontage&#8230;</a>
+					<a href="http://sacapof.org/quelques-photo-du-demontage/" rel="bookmark">Quelques photo du dï¿½montage&#8230;</a>
 				</h1>
 				<div class="entry-meta">
 					<span class="posted-on">
@@ -82,7 +86,7 @@ public class SacAPof extends WebSite{
 					<span class="byline"> 
 						<i class="fa fa-user"></i> 
 						<span class="author vcard">
-							<a class="url fn n" href="http://sacapof.org/author/matthieu/">Matthieu Drucké</a>
+							<a class="url fn n" href="http://sacapof.org/author/matthieu/">Matthieu Druckï¿½</a>
 						</span>
 					</span>				
 					<span class="comments-link">
@@ -92,8 +96,8 @@ public class SacAPof extends WebSite{
 				</div><!-- .entry-meta -->
 			</header><!-- .entry-header -->
 			<div class="entry-content">
-				<p>Voici quelques photos du démontage et lavage des prises du mur du Polyèdre qui a eu lieu le weekend dernier.</p>
-				<p>Merci beaucoup à tous les bénévoles présent, petits et grands!!</p>
+				<p>Voici quelques photos du dï¿½montage et lavage des prises du mur du Polyï¿½dre qui a eu lieu le weekend dernier.</p>
+				<p>Merci beaucoup ï¿½ tous les bï¿½nï¿½voles prï¿½sent, petits et grands!!</p>
 				<div data-carousel-extra='{"blog_id":1,"permalink":"http:\/\/sacapof.org\/quelques-photo-du-demontage\/"}' class="tiled-gallery type-rectangular" data-original-width="648">
 					<div class="gallery-row" style="width: 643px; height: 179px;">
 						<div class="gallery-group images-1" style="width: 321px; height: 183px;">
@@ -214,18 +218,23 @@ public class SacAPof extends WebSite{
 */
 	
 	public static void main(String[] args) {
-		String test = "<h1 class=\"entry-title\"><a href=\"http://sacapof.org/quelques-photo-du-demontage/\" rel=\"bookmark\">Quelques photo du démontage&#8230;</a></h1>";
-		Document doc = Jsoup.parse(test);
-		System.out.println(doc.text());
-		Elements titre = doc.getElementsByTag("article");
-		System.out.println(titre);
-		System.out.println(titre.first());
-		System.out.println(titre.get(0).html());
-		Elements all = titre.get(0).getAllElements();
-		System.out.println("AAAA");
-		for (Element e : all){
-			System.out.println(e.html());
-			System.out.println(e.text());
-		}
+//		String test = "<h1 class=\"entry-title\"><a href=\"http://sacapof.org/quelques-photo-du-demontage/\" rel=\"bookmark\">Quelques photo du dï¿½montage&#8230;</a></h1>";
+//		Document doc = Jsoup.parse(test);
+//		System.out.println(doc.text());
+//		Elements titre = doc.getElementsByTag("article");
+//		System.out.println(titre);
+//		System.out.println(titre.first());
+//		System.out.println(titre.get(0).html());
+//		Elements all = titre.get(0).getAllElements();
+//		System.out.println("AAAA");
+//		for (Element e : all){
+//			System.out.println(e.html());
+//			System.out.println(e.text());
+//		}
+        SacAPof sap = new SacAPof();
+        List<Article> articles = sap.getNewArticles();
+        for (Article art : articles){
+            System.out.println(art.getBody());
+        }
 	}
 }

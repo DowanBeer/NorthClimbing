@@ -1,5 +1,9 @@
 package com.dowanBeer.articleRetreiver.website;
 
+import com.dowanBeer.articleRetreiver.beans.Article;
+
+import java.util.List;
+
 public class WhatsUp extends WebSite{
 
 	public WhatsUp(String name, String[] articleId) {
@@ -14,7 +18,7 @@ public class WhatsUp extends WebSite{
 	}
 
 	@Override
-	public String[] getNewArticles() {
+	public List<Article> getNewArticles() {
 		// TODO Auto-generated method stub
 		return null;
 	}

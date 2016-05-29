@@ -2,6 +2,8 @@ package com.dowanBeer.articleRetreiver.beans;
 
 import com.dowanBeer.articleRetreiver.website.WebSite;
 
+import java.time.LocalDateTime;
+
 public class Article {
 
 	private String html;
@@ -12,7 +14,9 @@ public class Article {
 	private String body;
 	private WebSite owner;
 
-	public Article(String html, String md5, String id, String text, String title, String body, WebSite owner) {
+    private LocalDateTime date;
+
+	public Article(String html, String md5, String id, String text, String title, String body, WebSite owner, LocalDateTime date) {
 		super();
 		this.html = html;
 		this.md5 = md5;
@@ -21,6 +25,7 @@ public class Article {
 		this.title = title;
 		this.body = body;
 		this.owner = owner;
+        this.date = date;
 	}
 
 	public String getHtml() {
@@ -78,5 +83,13 @@ public class Article {
 	public void setOwner(WebSite owner) {
 		this.owner = owner;
 	}
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 
 }
