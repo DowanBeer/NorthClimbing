@@ -1,0 +1,22 @@
+web:
+  image: plinz/northclimbing
+  ports:
+  - ip: {{ .ip }} 
+    container_port: 80
+    host_port: 8080
+  links:
+  - name: mysql
+    alias: db
+
+mysql:
+  image: mysql/mysql-server:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: {{ .db_root_pwd }}
+    MYSQL_USER: {{ .db_user }}
+    MYSQL_PASSWORD: {{ .db_pwd }}
+    MYSQL_DATABASE: northclimbingdb
+  volumes:
+  - name: datadir
+    path: /var/lib/mysql
+  command: --character-set-server=utf8 --collation-server=utf8_general_ci
+  
