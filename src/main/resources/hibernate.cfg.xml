@@ -9,9 +9,9 @@
 		<property name="connection.username">root</property>
 		<property name="connection.password">root123</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-	    <property name="hibernate.show_sql">false</property>
-	    
-	    <mapping resource="Article.hbm.xml"/>
-	    <mapping resource="WebSite.hbm.xml"/>
+		<property name="hibernate.show_sql">false</property>
+
+		<mapping resource="Article.hbm.xml" />
+		<mapping resource="WebSite.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
