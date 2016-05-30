@@ -4,14 +4,11 @@
           "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="connection.url">jdbc:mysql://localhost/test</property>
+		<property name="connection.url">jdbc:mysql://db:3306/northclimbingdb</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">root123</property>
+		<property name="connection.username">user</property>
+		<property name="connection.password">password</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.show_sql">false</property>
-
-		<mapping resource="Article.hbm.xml" />
-		<mapping resource="WebSite.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
