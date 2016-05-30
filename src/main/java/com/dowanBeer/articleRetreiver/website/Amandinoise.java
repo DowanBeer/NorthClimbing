@@ -1,13 +1,14 @@
 package com.dowanBeer.articleRetreiver.website;
 
 import com.dowanBeer.articleRetreiver.beans.Article;
+import com.dowanBeer.articleRetreiver.beans.WebSite;
 
 import java.util.List;
 
 public class Amandinoise extends WebSite {
 
-	public Amandinoise(String name, String[] articleId) {
-		super(name, articleId);
+	public Amandinoise(String name, String url) {
+		super(name, url);
 		// TODO Auto-generated constructor stub
 	}
 

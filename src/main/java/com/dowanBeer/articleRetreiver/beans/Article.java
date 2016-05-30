@@ -1,31 +1,68 @@
 package com.dowanBeer.articleRetreiver.beans;
 
-import com.dowanBeer.articleRetreiver.website.WebSite;
-
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ARTICLE")
 public class Article {
-
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private int id;
+	
+	@Column(name = "html")
 	private String html;
+	
+	@Column(name = "md5")
 	private String md5;
-	private String id;
+	
+	@Column(name = "text")
 	private String text;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "body")
 	private String body;
+
+	@ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST }, optional = true)
+	@JoinColumn(name = "website_oid", referencedColumnName = "oid", nullable = false)
 	private WebSite owner;
+	
+	@Column(name = "date")
+	private LocalDateTime date;
 
-    private LocalDateTime date;
-
-	public Article(String html, String md5, String id, String text, String title, String body, WebSite owner, LocalDateTime date) {
+	public Article(String html, String md5, String text, String title, String body, WebSite owner,
+			LocalDateTime date) {
 		super();
 		this.html = html;
 		this.md5 = md5;
-		this.id = id;
 		this.text = text;
 		this.title = title;
 		this.body = body;
 		this.owner = owner;
-        this.date = date;
+		this.date = date;
+	}
+
+	public Article() {
+		super();
+		this.html = null;
+		this.md5 = null;
+		this.text = null;
+		this.title = null;
+		this.body = null;
+		this.owner = null;
+		this.date = null;
 	}
 
 	public String getHtml() {
@@ -42,14 +79,6 @@ public class Article {
 
 	public void setMd5(String md5) {
 		this.md5 = md5;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getText() {
@@ -84,12 +113,12 @@ public class Article {
 		this.owner = owner;
 	}
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+	public LocalDateTime getDate() {
+		return date;
+	}
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
 
 }

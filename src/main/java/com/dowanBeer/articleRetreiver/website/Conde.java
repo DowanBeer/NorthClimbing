@@ -1,13 +1,14 @@
 package com.dowanBeer.articleRetreiver.website;
 
 import com.dowanBeer.articleRetreiver.beans.Article;
+import com.dowanBeer.articleRetreiver.beans.WebSite;
 
 import java.util.List;
 
 public class Conde extends WebSite {
 
-	public Conde(String name, String[] articleId) {
-		super(name, articleId);
+	public Conde(String name, String url) {
+		super(name, url);
 		// TODO Auto-generated constructor stub
 	}
 
