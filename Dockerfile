@@ -39,19 +39,6 @@ WORKDIR /srv/NorthClimbing/
 RUN mvn install
 # ==============================================================
 
-# SQLITE & database TODO => Run mySQL on other Docker link
-# ==============================================================
-#RUN apt-get install -y --force-yes sqlite3
-#
-# Add database init script & run it
-#ADD dbinit.sql /srv/StrongBox/
-#RUN sqlite3 /tmp/data.db < /srv/StrongBox/dbinit.sql
-#
-# TODO Add database epuration scipt and run it via cron
-# ADD dbepuration.sql /srv/StrongBox/
-# launch via crontab
-# ==============================================================
-
 # CLEAN UP
 # ==============================================================
 RUN apt-get autoremove && \
@@ -62,12 +49,12 @@ RUN apt-get autoremove && \
 # web service configuration
 # ==============================================================
 # Precise the source folder
-ADD src /srv/StrongBox/src/
+ADD src /srv/NorthClimbing/src/
 # Listen on the specified network port
 EXPOSE 8080
 # ==============================================================
 
-# Start the web service
+# Start the web service (WebService TODO)
 # ==============================================================
-CMD mvn jetty:run
+#CMD mvn jetty:run
 # ==============================================================
