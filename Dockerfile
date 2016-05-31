@@ -16,7 +16,7 @@ FROM debian
 #ENV LANG en_US.UTF-8
 
 # run update
-RUN apt-get update
+RUN apt-get update &&
 # ==============================================================
 
 # INSTALL & CONFIGURE JAVA
