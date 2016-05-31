@@ -16,13 +16,13 @@ FROM debian
 #ENV LANG en_US.UTF-8
 
 # run update
-RUN apt-get update &&
+RUN apt-get update && \
 # ==============================================================
 
 # INSTALL & CONFIGURE JAVA
 # ==============================================================
 # Install java8
-RUN apt-get install -y --force-yes openjdk-8-jdk
+	apt-get install -y --force-yes openjdk-8-jdk
 
 # Setup JAVA_HOME and other environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
