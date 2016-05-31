@@ -22,7 +22,7 @@ RUN apt-get update
 # INSTALL & CONFIGURE JAVA
 # ==============================================================
 # Install java8
-RUN apt-get install -y --force-yes openjdk-8-jdk
+RUN apt-get install -y openjdk-8-jdk
 
 # Setup JAVA_HOME and other environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
