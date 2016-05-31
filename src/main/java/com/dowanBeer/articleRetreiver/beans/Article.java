@@ -42,8 +42,11 @@ public class Article {
 	@Column(name = "date")
 	private LocalDateTime date;
 
+	@Column(name = "url")
+	private String url;
+	
 	public Article(String html, String md5, String text, String title, String body, WebSite owner,
-			LocalDateTime date) {
+			LocalDateTime date, String url) {
 		super();
 		this.html = html;
 		this.md5 = md5;
@@ -52,6 +55,7 @@ public class Article {
 		this.body = body;
 		this.owner = owner;
 		this.date = date;
+		this.url = url;
 	}
 
 	public Article() {
@@ -63,6 +67,15 @@ public class Article {
 		this.body = null;
 		this.owner = null;
 		this.date = null;
+		this.url = null;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getHtml() {
@@ -119,6 +132,14 @@ public class Article {
 
 	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

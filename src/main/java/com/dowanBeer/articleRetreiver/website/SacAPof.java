@@ -49,7 +49,12 @@ public class SacAPof extends WebSite{
                     Element time = article.getElementsByTag("time").first();
                     String date = time != null ? time.attr("datetime"): null;
                     ZonedDateTime zdt = ZonedDateTime.parse(date);
-					arts.add(new Article(article.html(), md5article, article.text(), title, body, this, zdt.toLocalDateTime()));
+                    String url = null;
+                    if (h1 != null){
+                    	Element link = h1.getElementsByTag("a").first();
+                    	url = link!=null ? link.attr("href") : null;
+                    }
+					arts.add(new Article(article.html(), md5article, article.text(), title, body, this, zdt.toLocalDateTime(), url));
 				}
 			}
 		} catch (IOException e) {

@@ -1,7 +1,6 @@
 package com.dowanBeer.articleRetreiver.article;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -18,13 +17,13 @@ public class ManageArticle {
 
 	/* Method to CREATE an article in the database */
 	public Integer addArticle(String html, String md5, String id, String text, String title, String body, WebSite owner,
-			LocalDateTime date) {
+			LocalDateTime date, String url) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Integer articleOID = null;
 		try {
 			tx = session.beginTransaction();
-			Article article = new Article(html, md5, text, title, body, owner, date);
+			Article article = new Article(html, md5, text, title, body, owner, date, url);
 			articleOID = (Integer) session.save(article);
 			tx.commit();
 		} catch (HibernateException e) {
