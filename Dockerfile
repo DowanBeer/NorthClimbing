@@ -7,7 +7,7 @@
 
 # DEFINE IMAGE
 # ==============================================================
-FROM debian
+FROM java:8
 # ==============================================================
 
 # Before install
@@ -16,19 +16,19 @@ FROM debian
 #ENV LANG en_US.UTF-8
 
 # run update
-RUN apt-get update && \
+RUN apt-get update
 # ==============================================================
 
 # INSTALL & CONFIGURE JAVA
 # ==============================================================
 # Install java8
-	apt-get install -y --force-yes openjdk-8-jdk
+#	apt-get install -y --force-yes openjdk-8-jdk
 
 # Setup JAVA_HOME and other environment variables
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-ENV PATH $PATH:$JAVA_HOME/bin
-ENV CLASSPATH $JAVA_HOME/lib/tools.jar
-ENV MANPATH $JAVA_HOME/man
+#ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+#ENV PATH $PATH:$JAVA_HOME/bin
+#ENV CLASSPATH $JAVA_HOME/lib/tools.jar
+#ENV MANPATH $JAVA_HOME/man
 # ==============================================================
 
 # INSTALL & CONFIGURE MAVEN
