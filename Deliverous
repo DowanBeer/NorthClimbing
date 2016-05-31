@@ -1,5 +1,5 @@
 web:
-  image: plinz/northclimbing
+  image: dowanbeer/northclimbing
   ports:
   - ip: {{ .ip }} 
     container_port: 80
