@@ -72,7 +72,7 @@ public class SacAPof extends WebSite{
 		return null;
 	}
 	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		String test = "<h1 class=\"entry-title\"><a href=\"http://sacapof.org/quelques-photo-du-demontage/\" rel=\"bookmark\">Quelques photo du d�montage&#8230;</a></h1>";
 //		Document doc = Jsoup.parse(test);
 //		System.out.println(doc.text());
@@ -86,10 +86,10 @@ public class SacAPof extends WebSite{
 //			System.out.println(e.html());
 //			System.out.println(e.text());
 //		}
-        SacAPof sap = new SacAPof();
-        List<Article> articles = sap.getNewArticles();
-        for (Article art : articles){
-            System.out.println(art.getBody());
-        }
-	}
+//        SacAPof sap = new SacAPof();
+//        List<Article> articles = sap.getNewArticles();
+//        for (Article art : articles){
+//            System.out.println(art.getBody());
+//        }
+//	}
 }
