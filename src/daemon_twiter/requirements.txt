@@ -1,0 +1,8 @@
+python, 
+python pip
+pythoni-twitter
+b3j0f.conf
+
+sudo apt-get install python python-pip
+pip install python-twitter
+pip install b3j0f.conf
